@@ -1,6 +1,6 @@
 import { DynamicWidget ,  useDynamicContext} from "@dynamic-labs/sdk-react-core";
 import { useState } from "react";
-
+import  CreateGroup from "./views/CreateGroup";
 // import { Address } from "~~/components/scaffold-eth";
 // import  {UserProfile}  from "@dynamic-labs/sdk-react-core";
 
@@ -9,9 +9,19 @@ import { useState } from "react";
 
 const Main = () => {
 
-  const [view, setView] = useState("DASHBOARD");
+  const [groups, setGroups] = useState({});
+
+  const [view, setView] = useState("CREATEGROUP");
   const {user} = useDynamicContext();
   console.log(view);
+
+  const renderView = () => {
+    switch (view) {
+      case "CREATEGROUP":
+        return <CreateGroup />;
+    }
+  };
+
   if (!user){
     return(
 
@@ -40,7 +50,7 @@ const Main = () => {
         <ul className="menu bg-base-200 text-base-content min-h-full">
 
       <li>
-        <button className="hover:bg-gray-700 hover:text-white p-2 w-full rounded" onClick={() => setView("DASHBOARD")}>Dashboard</button>
+        <button className="hover:bg-gray-700 hover:text-white p-2 w-full rounded" onClick={() => setView("CREATEGROUP")}>Create a group</button>
         </li>
         <li>
 
@@ -53,7 +63,7 @@ const Main = () => {
         </ul>
       </div>
       <div className="drawer-content min-h-screen w-full bg-gray-400 rounded p-6 m-6 ">
-        {view}
+        {renderView()}
       </div>
   </div>
   );}
