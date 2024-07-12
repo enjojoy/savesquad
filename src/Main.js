@@ -2,6 +2,7 @@ import { DynamicWidget ,  useDynamicContext} from "@dynamic-labs/sdk-react-core"
 import { useState } from "react";
 import  CreateGroup from "./views/CreateGroup";
 import { Datepicker } from "flowbite-react";
+import GroupView from "./views/GroupView";
 
 // import { Address } from "~~/components/scaffold-eth";
 // import  {UserProfile}  from "@dynamic-labs/sdk-react-core";
@@ -62,14 +63,14 @@ const Main = () => {
       case "CREATEGROUP":
         return <CreateGroup />;
         case "GROUPDETAIL":
-        return <div>{selectedGroup ? selectedGroup.desc : "Select a group to view details"}</div>;
+        return <GroupView group={selectedGroup} />;
     }
   };
 
   if (!user){
     return(
 
-    <div className="min-h-screen bg-beige flex flex-col items-center justify-center text-white">
+    <div className="h-screen bg-beige flex flex-col items-center justify-center text-white">
       <div className="flex flex-col items-center justify-center text-center">
         <div className="mb-6">
           <div className="inline-flex items-center justify-center">
@@ -89,12 +90,12 @@ const Main = () => {
     )
   }else {
   return (
-    <div className="drawer min-h-screen bg-brown flex flex-row text-black">
-      < div className=" drawer-side drawer-open min-h-screen bg-beige rounded p-6 m-6 ">
+    <div className="drawer h-screen bg-brown flex flex-row text-black overflow-hidden">
+      < div className=" drawer-side drawer-open h-auto bg-beige rounded p-6 m-6 flex-none">
         <ul className="menu bg-base-200 text-base-content min-h-full">
 
       <li>
-        <button className=" bg-[#9670fa] font-press-start hover:bg-gray-700 hover:text-white p-2 mb-2 w-full text-white rounded" onClick={() => setView("CREATEGROUP")}>New group +</button>
+        <button className=" bg-[#9670fa] font-press-start hover:bg-gray-700 hover:text-white p-2 mb-2 w-full text-white rounded" onClick={() => setView("CREATEGROUP")}>New squad +</button>
         </li>
 
 
@@ -119,7 +120,7 @@ const Main = () => {
         </li>
         </ul>
       </div>
-      <div className="drawer-content min-h-screen w-full bg-beige rounded p-6 m-6 ">
+      <div className="drawer-content felx-grow h-auto w-full bg-beige rounded p-6 m-6 ">
         {renderView()}
       </div>
 
