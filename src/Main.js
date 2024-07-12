@@ -69,7 +69,7 @@ const Main = () => {
   if (!user){
     return(
 
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black flex flex-col items-center justify-center text-white">
+    <div className="min-h-screen bg-beige flex flex-col items-center justify-center text-white">
       <div className="flex flex-col items-center justify-center text-center">
         <div className="mb-6">
           <div className="inline-flex items-center justify-center">
@@ -89,12 +89,12 @@ const Main = () => {
     )
   }else {
   return (
-    <div className="drawer min-h-screen bg-gradient-to-b from-gray-900 to-black flex flex-row text-white">
-      < div className=" drawer-side drawer-open min-h-screen bg-gray-400 rounded p-6 m-6 ">
+    <div className="drawer min-h-screen bg-brown flex flex-row text-black">
+      < div className=" drawer-side drawer-open min-h-screen bg-beige rounded p-6 m-6 ">
         <ul className="menu bg-base-200 text-base-content min-h-full">
 
       <li>
-        <button className=" bg-[#9670fa] font-press-start hover:bg-gray-700 hover:text-white p-2 mb-2 w-full text-white rounded" onClick={() => setView("CREATEGROUP")}>Create a group +</button>
+        <button className=" bg-[#9670fa] font-press-start hover:bg-gray-700 hover:text-white p-2 mb-2 w-full text-white rounded" onClick={() => setView("CREATEGROUP")}>New group +</button>
         </li>
 
 
@@ -119,7 +119,7 @@ const Main = () => {
         </li>
         </ul>
       </div>
-      <div className="drawer-content min-h-screen w-full bg-gray-400 rounded p-6 m-6 ">
+      <div className="drawer-content min-h-screen w-full bg-beige rounded p-6 m-6 ">
         {renderView()}
       </div>
 

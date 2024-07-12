@@ -19,8 +19,8 @@ const CreateGroup = ({ groups, setGroups }) => {
   };
 
   return (
-    <div className="p-4 bg-gray-800 text-white rounded">
-      <h2 className="text-2xl mb-4">Create Group</h2>
+    <div>
+      <h2 className="text-2xl font-press-start mb-4">New group</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label className="block mb-2">Name</label>
@@ -28,7 +28,7 @@ const CreateGroup = ({ groups, setGroups }) => {
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full p-2 rounded bg-gray-700 text-white"
+            className="w-full p-2 rounded"
             required
           />
         </div>
@@ -37,7 +37,7 @@ const CreateGroup = ({ groups, setGroups }) => {
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="w-full p-2 rounded bg-gray-700 text-white"
+            className="w-full p-2 rounded "
             required
           />
         </div>
@@ -47,14 +47,14 @@ const CreateGroup = ({ groups, setGroups }) => {
             type="number"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
-            className="w-full p-2 rounded bg-gray-700 text-white"
+            className="w-full p-2 rounded   "
             required
           />
         </div>
 
         <Datepicker />
 
-        <button type="submit" className="bg-blue-500 p-2 rounded">
+        <button type="submit" className="bg-azure p-4 mt-6 font-press-start text-white rounded">
           Create Group
         </button>
       </form>
