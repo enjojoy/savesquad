@@ -51,7 +51,6 @@ const CreateGroup = ({ groups, setGroups }) => {
           />
         </div>
 
-<div id="datepicker-inline" inline-datepicker data-date="02/25/2024"></div>
 
         <button type="submit" className="bg-blue-500 p-2 rounded">
           Create Group
