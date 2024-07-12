@@ -6,19 +6,61 @@ import  CreateGroup from "./views/CreateGroup";
 
 //Views: LOGIN - not logged in; Menu - DASHBOARD, APP 
 
+//group object example
+// {
+//   name:"Name",
+//   desc:"Hello here is a group",
+//   currency: "eth",
+//   amount: 100,
+//   expDate: "11.01.2001"
+// }
+
 
 const Main = () => {
 
-  const [groups, setGroups] = useState({});
+  const [groups, setGroups] = useState(
+    [
+      {
+        "name": "Crypto Enthusiasts",
+        "desc": "A group for those passionate about cryptocurrency.",
+        "currency": "eth",
+        "amount": 100,
+        "expDate": "2024-12-31"
+      },
+      {
+        "name": "Blockchain Developers",
+        "desc": "A community for developers working on blockchain technology.",
+        "currency": "btc",
+        "amount": 50,
+        "expDate": "2025-06-30"
+      },
+      {
+        "name": "DeFi Investors",
+        "desc": "Investors exploring decentralized finance opportunities.",
+        "currency": "eth",
+        "amount": 200,
+        "expDate": "2023-09-15"
+      },
+      {
+        "name": "NFT Collectors",
+        "desc": "A group for enthusiasts of non-fungible tokens.",
+        "currency": "eth",
+        "amount": 150,
+        "expDate": "2024-03-20"
+      },
+    ]);
 
   const [view, setView] = useState("CREATEGROUP");
   const {user} = useDynamicContext();
   console.log(view);
+  const [selectedGroup, setSelectedGroup] = useState(null);
 
   const renderView = () => {
     switch (view) {
       case "CREATEGROUP":
         return <CreateGroup />;
+        case "GROUPDETAIL":
+        return <div>{selectedGroup ? selectedGroup.desc : "Select a group to view details"}</div>;
     }
   };
 
@@ -50,13 +92,26 @@ const Main = () => {
         <ul className="menu bg-base-200 text-base-content min-h-full">
 
       <li>
-        <button className="hover:bg-gray-700 hover:text-white p-2 w-full rounded" onClick={() => setView("CREATEGROUP")}>Create a group</button>
+        <button className=" bg-[#800080] hover:bg-gray-700 hover:text-white p-2 w-full rounded" onClick={() => setView("CREATEGROUP")}>Create a group +</button>
         </li>
+
+
+        {groups.map((group, index) => (
+              <li key={index}>
+                <button 
+                  className="hover:bg-gray-700 hover:text-white p-2 mb-2 w-full rounded"
+                  onClick={() => {
+                    setSelectedGroup(group);
+                    setView("GROUPDETAIL");
+                  }}
+                >
+                  {group.name}
+                </button>
+              </li>
+            ))}
         <li>
 
-      <button className="hover:bg-gray-700 hover:text-white p-2 mb-2 w-full rounded" onClick={() => setView("INTERFACE")}>Interface</button>
-        </li>
-        <li>
+
 
       < DynamicWidget  />
         </li>
