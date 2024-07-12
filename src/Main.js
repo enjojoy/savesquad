@@ -1,6 +1,8 @@
 import { DynamicWidget ,  useDynamicContext} from "@dynamic-labs/sdk-react-core";
 import { useState } from "react";
 import  CreateGroup from "./views/CreateGroup";
+import { Datepicker } from "flowbite-react";
+
 // import { Address } from "~~/components/scaffold-eth";
 // import  {UserProfile}  from "@dynamic-labs/sdk-react-core";
 
@@ -120,6 +122,9 @@ const Main = () => {
       <div className="drawer-content min-h-screen w-full bg-gray-400 rounded p-6 m-6 ">
         {renderView()}
       </div>
+
+
+    <Datepicker></Datepicker>
   </div>
   );}
 }

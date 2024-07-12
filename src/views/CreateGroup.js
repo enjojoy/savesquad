@@ -1,3 +1,4 @@
+import { Datepicker } from "flowbite-react";
 import { useState } from "react";
 
 const CreateGroup = ({ groups, setGroups }) => {
@@ -51,6 +52,7 @@ const CreateGroup = ({ groups, setGroups }) => {
           />
         </div>
 
+        <Datepicker />
 
         <button type="submit" className="bg-blue-500 p-2 rounded">
           Create Group
