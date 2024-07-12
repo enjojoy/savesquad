@@ -94,7 +94,7 @@ const Main = () => {
         <ul className="menu bg-base-200 text-base-content min-h-full">
 
       <li>
-        <button className=" bg-[#800080] hover:bg-gray-700 hover:text-white p-2 mb-2 w-full rounded" onClick={() => setView("CREATEGROUP")}>Create a group +</button>
+        <button className=" bg-[#9670fa] font-press-start hover:bg-gray-700 hover:text-white p-2 mb-2 w-full text-white rounded" onClick={() => setView("CREATEGROUP")}>Create a group +</button>
         </li>
 
 
