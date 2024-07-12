@@ -124,7 +124,6 @@ const Main = () => {
       </div>
 
 
-    <Datepicker></Datepicker>
   </div>
   );}
 }
