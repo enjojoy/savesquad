@@ -46,7 +46,7 @@ const CreateGroup = ({ groups, setGroups }) => {
         </div>
         <div className="flex flex-row w-full">
 
-        <div className="mb-4 w-1/2">
+        <div className="mb-4 w-3/4 px-2">
           <label className="block mb-2">Goal amount</label>
           <input
             type="number"
@@ -56,23 +56,22 @@ const CreateGroup = ({ groups, setGroups }) => {
             required
           />
         </div>
-        <div className="mb-4 w-1/2">
+        <div className="mb-4 w-1/4 px-2">
           <label className="block mb-2">Currency</label>
           <select
-            value={frequency}
+            value={currency}
             onChange={(e) => setCurrency(e.target.value)}
             className="w-full p-2 rounded"
           >
             <option value="USDC">USDC</option>
-            {/* <option value="bi-weekly">Bi-weekly</option> */}
-            <option value="BTC">BTC</option>
+            <option value="rBTC">rBTC</option>
           </select>
         </div>
         </div>
 
         <div className="flex flex-row w-full" >
 
-        <div className="mb-4 w-1/2">
+        <div className="mb-4 w-1/2 px-2">
           <label className="block mb-2">Frequency</label>
           <select
             value={frequency}
@@ -85,7 +84,7 @@ const CreateGroup = ({ groups, setGroups }) => {
           </select>
         </div>
 
-<div className="mb-4 w-1/2">
+<div className="mb-4 w-1/2 px-2">
 <label className="block mb-2">Milestone date</label>
         <Datepicker />
 </div>
