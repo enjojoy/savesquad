@@ -20,6 +20,7 @@ module.exports = {
         'brown': '#655561',
         'purple': '#9670FA',
         'azure':'#10C2A2',
+        'orange':'#ea5c10'
       },
     }
 
