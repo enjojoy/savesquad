@@ -1,10 +1,6 @@
-import Web3 from "web3";
-
-// Initialize web3 with a provider (e.g., Infura)
-const rpc = `https://rpc.testnet.rootstock.io/Z5XaHGYmGgPwxBIVmIjY7Yfpz4wKRI-T`;
-const web3 = new Web3(rpc);
-
-const abi = [
+export const ROOTSTOCK_POOL_CONTRACT =
+  "0x170615F501120302803320983bdCAD2f4F7034FD";
+export const ABI_ROOTSTOCK_POOL_CONTRACT = [
   {
     anonymous: false,
     inputs: [
@@ -399,28 +395,3 @@ const abi = [
     type: "function",
   },
 ];
-
-// Define the contract address
-const contractAddress = "0x170615F501120302803320983bdCAD2f4F7034FD";
-
-// Create a contract instance
-const contract = new web3.eth.Contract(abi, contractAddress);
-
-export default async function handler(req, res) {
-  try {
-    const { poolId } = req.query;
-
-    if ((type(poolId) == null) | undefined) {
-      res.status(300).json({ error: "The poolId parameter must be defined" });
-    }
-
-    // Call the view function
-    console.log(contract);
-
-    // Send the result back to the client
-    res.status(200).json({ message: "tmp" });
-  } catch (error) {
-    console.error("Error calling contract function:", error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-}
