@@ -4,6 +4,7 @@ import CreateGroup from "./views/CreateGroup";
 import { Datepicker } from "flowbite-react";
 import GroupView from "./views/GroupView";
 
+
 // import { Address } from "~~/components/scaffold-eth";
 // import  {UserProfile}  from "@dynamic-labs/sdk-react-core";
 
@@ -17,7 +18,6 @@ import GroupView from "./views/GroupView";
 //   amount: 100,
 //   expDate: "11.01.2001"
 // }
-
 
 const Main = () => {
   // useEffect(() => {
@@ -50,6 +50,10 @@ const Main = () => {
   //   fetchData();
   // }, []);
 
+ 
+
+ 
+  const [file, setFile] = useState(null);
 
   const [groups, setGroups] = useState(
     [
@@ -73,8 +77,8 @@ const Main = () => {
   const renderView = () => {
     switch (view) {
       case "CREATEGROUP":
-        return <CreateGroup groups={groups} setGroups={setGroups} />;
-      case "GROUPDETAIL":
+        return <CreateGroup groups={groups} setGroups={setGroups} file={file} setFile={setFile}/>;
+        case "GROUPDETAIL":
         return <GroupView group={selectedGroup} />;
     }
   };
@@ -122,6 +126,8 @@ const Main = () => {
         <div className="drawer-content felx-grow h-auto w-full bg-beige rounded p-6 m-6 ">
           {renderView()}
         </div>
+
+
 
 
       </div>
