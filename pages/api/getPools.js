@@ -447,12 +447,12 @@ async function getPools() {
   const result = response.data.result;
 
   const respuesta = {
-    poolsCreation: [],
-    deposites: [],
+    pools: {},
   };
 
   let decodedEvent;
   let data;
+  let poolId;
 
   for (let i = 0; i < result.length; i++) {
     const e = result[`${i}`];
@@ -466,7 +466,7 @@ async function getPools() {
           CREATED_POOL_EVENT
         );
 
-        const poolId = parseInt(decodedEvent.poolId);
+        poolId = parseInt(decodedEvent.poolId);
 
         const details = await contract.methods.getPoolDetails(poolId).call();
         const members = details["6"];
@@ -480,9 +480,10 @@ async function getPools() {
           dueDate: parseInt(decodedEvent.dueDate),
           members: members,
           currency: decodedEvent.currency,
+          deposits: [],
         };
 
-        respuesta.poolsCreation.push(data);
+        respuesta.pools[poolId] = data;
 
       case DEPOSIT_POOL_EVENT:
         decodedEvent = web3.eth.abi.decodeLog(
@@ -491,15 +492,16 @@ async function getPools() {
           DEPOSIT_POOL_EVENT
         );
 
-        const data = {
-          poolId: parseInt(decodedEvent.poolId),
+        data = {
           depositor: decodedEvent.depositor,
           amount: parseInt(decodedEvent.amount),
         };
 
         if (data.amount == 320) break;
 
-        respuesta.deposites.push(data);
+        poolId = parseInt(decodedEvent.poolId);
+
+        respuesta.pools[poolId].deposits.push(data);
 
       default:
         break;
