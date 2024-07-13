@@ -22,7 +22,7 @@ const GroupView = ({ group }) => {
 
       <div className="flex justify-end">
 
-        <SendTransactionSection address={0xb76080b3025f0fAAF8A2223C037C351d6AF6A1AA}></SendTransactionSection>
+        <SendTransactionSection address={"0xb76080b3025f0fAAF8A2223C037C351d6AF6A1AA"}></SendTransactionSection>
 
       </div>
     </div>
