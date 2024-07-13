@@ -95,7 +95,7 @@ const Main = () => {
   } else {
     return (
       <div className="drawer h-screen bg-brown flex flex-row text-black overflow-hidden">
-        < div className=" drawer-side drawer-open h-auto bg-beige rounded p-6 m-6 flex-none">
+        < div className=" drawer-side relative drawer-open h-auto bg-beige rounded p-6 m-6 flex-none">
           <ul className="flex flex-col menu bg-base-200 text-base-content min-h-full">
             <li>
             <Image src={`images/logo.svg`} alt="logo" height="50" width="250" onClick={()=>setView("DASHBOARD")}/>
@@ -103,9 +103,9 @@ const Main = () => {
 
 
             {groups.map((group, index) => (
-              <li key={index}>
+              <li key={index} >
                 <button
-                  className="hover:bg-gray-700 hover:text-white p-2 mb-2 w-full rounded"
+                  className="hover:bg-orange hover:text-white p-2 mb-2 w-full rounded"
                   onClick={() => {
                     setSelectedGroup(group);
                     setView("GROUPDETAIL");
@@ -115,15 +115,15 @@ const Main = () => {
                 </button>
               </li>
             ))}
+            <div className="absolute bottom-0 mb-6 center w-[250px]">
+
             <li>
               <button className=" bg-[#9670fa] font-press-start hover:bg-gray-700 hover:text-white p-2 mb-2 w-full text-white rounded" onClick={() => setView("CREATEGROUP")}>New squad +</button>
             </li>
             <li>
-
-
-
               < DynamicWidget />
             </li>
+            </div>
           </ul>
         </div>
         <div className="drawer-content felx-grow h-auto w-full bg-beige rounded p-6 m-6 ">

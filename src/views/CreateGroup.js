@@ -13,6 +13,8 @@ const CreateGroup = ({ groups, setGroups, file, setFile }) => {
   const [contribution, setContribution] = useState(0);
   const [handle, setHandle] = useState("");
   const [members, setMembers] = useState([]);
+  const [percentageDone, setPercentageDone] = useState(0);
+  const [picHash, setPicHash] = useState("")
 
   // useEffect(()=>{
   //   console.log(handle);
@@ -20,15 +22,19 @@ const CreateGroup = ({ groups, setGroups, file, setFile }) => {
 
   // setContribution(0)
 
+ 
+
+
   console.log("GROUPS:", groups);
-  const updateGroups = ({ name, description, amount, currency, contribution, members }) => {
+  const updateGroups = ({ name, description, amount, currency, contribution, members, picHash }) => {
     const group = {
       name: name,
       desc: description,
       amount: amount,
       currency: currency,
       contributed: contribution,
-      members: members
+      members: members,
+      picHash: picHash
     };
     console.log("New group:", group)
     setGroups((prev) => {
@@ -55,15 +61,15 @@ const CreateGroup = ({ groups, setGroups, file, setFile }) => {
     const progressCallback = (progressData) => {
       let percentageDone =
         100 - (progressData?.total / progressData?.uploaded)?.toFixed(2)
+        setPercentageDone(percentageDone);
       console.log(percentageDone)
     }
       console.log("File to upload:", file)
       const output = await lighthouse.upload([file], "cc17de30.9c81d6383aa5420bb81b027aaa5a5c5d", false, null, progressCallback)
       const picHash = output.data.Hash;
       console.log("HASH: ", picHash);
+      setPicHash(picHash);
         console.log('Visit at https://gateway.lighthouse.storage/ipfs/' + output.data.Hash)
-    
-  
   };
 
   const handleFileChange = async (e) => {
@@ -77,7 +83,7 @@ const CreateGroup = ({ groups, setGroups, file, setFile }) => {
         e.preventDefault();
 
         console.log(description)
-        updateGroups({ name, description, amount, currency, contribution, members })
+        updateGroups({ name, description, amount, currency, contribution, members, picHash })
       }}>
         <div className="mb-4">
           <label className="block mb-2">Name</label>
@@ -160,11 +166,12 @@ const CreateGroup = ({ groups, setGroups, file, setFile }) => {
         </div>
 <div>
 
-      <input type="file" onChange={handleFileChange} />
-      <button onClick={handleSubmitFile}>Upload</button>
+      <input className="font-press-start rounded" type="file" onChange={handleFileChange} />
+           <p>{percentageDone}</p>
+      <button  className="font-press-start bg-azure text-white m-2 p-2 rounded"  onClick={handleSubmitFile}>Upload</button>
 </div>
 
-        <button type="submit" className="bg-azure p-4 mt-6 font-press-start text-white rounded">
+        <button type="submit"   className={"bg-azure p-4 mt-6 font-press-start text-white rounded"}>
           Create squad
         </button>
       </form>
