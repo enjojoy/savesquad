@@ -6,9 +6,10 @@ import Image from "next/image";
 
 const GroupView = ({ group }) => {
   console.log("GROUP VIEW:", group);
+  console.log(group.members)
   const DisplayImage = ({ cid }) => {
     const imageUrl = `https://gateway.lighthouse.storage/ipfs/${group.picHash}`;
-    return <img className="rounded" src={imageUrl} alt="Lighthouse Image" />;
+    return <img className="rounded max-h-[100px]" src={imageUrl} alt="Lighthouse Image" />;
   };
   return (
     // <div className="flex flex-col">
@@ -43,7 +44,20 @@ const GroupView = ({ group }) => {
 
     <div className="bg-gray-200 flex items-center justify-center">Pool/Balance/Rewards</div>
     <div className="bg-gray-200 flex items-center justify-center">My Transactions</div>
-    <div className="bg-gray-200 flex items-center justify-center">Four</div>
+    <div className="bg-gray-200 flex items-center justify-center">
+      <div className="flex flex-col">
+
+    {group.members.map((member, index) => (
+      <div key={index}>
+
+        <p className="font-press-start" >{member.domain}:</p>
+        <p>{member.address}</p>
+      </div>
+            
+          ))}
+      </div>
+    
+    </div>
   </div>
   );
 };

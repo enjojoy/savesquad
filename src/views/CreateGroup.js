@@ -171,7 +171,7 @@ const CreateGroup = ({ groups, setGroups, file, setFile }) => {
       <button  className="font-press-start bg-azure text-white m-2 p-2 rounded"  onClick={handleSubmitFile}>Upload</button>
 </div>
 
-        <button type="submit" className="bg-azure p-4 mt-6 font-press-start text-white rounded">
+        <button type="submit"   className={"bg-azure p-4 mt-6 font-press-start text-white rounded"}>
           Create squad
         </button>
       </form>
