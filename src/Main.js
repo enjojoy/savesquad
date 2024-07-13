@@ -1,4 +1,4 @@
-import { DynamicWidget ,  useDynamicContext} from "@dynamic-labs/sdk-react-core";
+import { DynamicWidget ,  useDynamicContext, useDynamicScopes} from "@dynamic-labs/sdk-react-core";
 import { useState , useEffect} from "react";
 import  CreateGroup from "./views/CreateGroup";
 import { Datepicker } from "flowbite-react";
@@ -86,7 +86,9 @@ const Main = () => {
   const [view, setView] = useState("CREATEGROUP");
   const {user} = useDynamicContext();
   console.log('USER:', user);
+  const {userScopes} = useDynamicScopes();
   const [selectedGroup, setSelectedGroup] = useState(null);
+  console.log("SCOPES:", userScopes)
 
   const renderView = () => {
     switch (view) {

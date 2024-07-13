@@ -12,6 +12,8 @@ const CreateGroup = ({ groups, setGroups }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    //1. Create new group on Dynamic and add all the members there
+    //2. Create the group in database with the rest of data(Or retrieve from SC?)
     // Assuming groups is an array of group objects
     const newGroup = { name, description, amount };
     setGroups([...groups, newGroup]);
@@ -47,7 +49,7 @@ const CreateGroup = ({ groups, setGroups }) => {
         <div className="flex flex-row w-full">
 
         <div className="mb-4 w-3/4 px-2">
-          <label className="block mb-2">Goal amount</label>
+          <label className="block mb-2">Squat Goal Amount</label>
           <input
             type="number"
             value={amount}
