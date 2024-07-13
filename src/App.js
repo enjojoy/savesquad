@@ -23,7 +23,7 @@ export default function App() {
   return (
     <DynamicContextProvider
       settings={{
-        environmentId: "2762a57b-faa4-41ce-9f16-abff9300e2c9",
+        environmentId: "85285cec-cdd9-4d7a-a42c-c5444369ccbb",
         walletConnectors: [EthereumWalletConnectors],
       }}
     >
