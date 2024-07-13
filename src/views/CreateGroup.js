@@ -1,7 +1,7 @@
 import { Datepicker } from "flowbite-react";
 import { useState } from "react";
 import lighthouse from '@lighthouse-web3/sdk'
-import { useAccount, useEnsName, useEnsAvatar } from "wagmi";
+import EnsResolver from "../components/EnsResolver";
 
 const CreateGroup = ({ groups, setGroups, file, setFile }) => {
   const [name, setName] = useState("");
@@ -12,6 +12,7 @@ const CreateGroup = ({ groups, setGroups, file, setFile }) => {
   const [currency, setCurrency] = useState("USDC");
   const [contribution, setContribution] = useState(0);
   const [handle, setHandle] = useState("");
+  const [members, setMembers] = useState([]);
 
   // useEffect(()=>{
   //   console.log(handle);
@@ -20,13 +21,14 @@ const CreateGroup = ({ groups, setGroups, file, setFile }) => {
   // setContribution(0)
 
   console.log("GROUPS:", groups);
-  const updateGroups = ({ name, description, amount, currency, contribution }) => {
+  const updateGroups = ({ name, description, amount, currency, contribution, members }) => {
     const group = {
       name: name,
       desc: description,
       amount: amount,
       currency: currency,
       contributed: contribution,
+      members: members
     };
     console.log("New group:", group)
     setGroups((prev) => {
@@ -75,7 +77,7 @@ const CreateGroup = ({ groups, setGroups, file, setFile }) => {
         e.preventDefault();
 
         console.log(description)
-        updateGroups({ name, description, amount, currency, contribution })
+        updateGroups({ name, description, amount, currency, contribution, members })
       }}>
         <div className="mb-4">
           <label className="block mb-2">Name</label>
@@ -146,14 +148,14 @@ const CreateGroup = ({ groups, setGroups, file, setFile }) => {
           <h4>Add squad member</h4>
           <p>Please enter email, eth address or ens handle</p>
           <div className="flex flex-row">
-
-          <input
+          <EnsResolver members={members} setMembers={setMembers}/>
+          {/* <input
            type="text"
            value={handle}
            onChange={(e) => setHandle(e.target.value)}
            className=" p-2 rounded w-full"
            required></input>
-           <button className="bg-azure p-4 ml-2 font-press-start text-white rounded">+</button>
+           <button className="bg-azure p-4 ml-2 font-press-start text-white rounded">+</button> */}
           </div>
         </div>
 <div>
