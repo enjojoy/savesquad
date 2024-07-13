@@ -409,6 +409,11 @@ const web3 = new Web3(
   "https://rpc.testnet.rootstock.io/Z5XaHGYmGgPwxBIVmIjY7Yfpz4wKRI-T"
 );
 
+const contract = new web3.eth.Contract(
+  abi,
+  "0x170615F501120302803320983bdCAD2f4F7034FD"
+);
+
 // const abi = JSON.parse(fs.readFileSync("ABI.json", "utf8"));
 
 const poolCreatedEvent = abi.find(
@@ -439,7 +444,6 @@ async function getPools() {
 
   // response.data;
 
-  console.log("\n\n\n\n", "Empieza", "\n\n\n\n");
   const result = response.data.result;
 
   const respuesta = {
@@ -456,29 +460,31 @@ async function getPools() {
     // console.log("elemento:", e);
     switch (e.topics[0]) {
       case CREATED_POOL_EVENT:
-        console.log("pool event");
         decodedEvent = web3.eth.abi.decodeLog(
           poolCreatedEvent.inputs,
           e.data,
           CREATED_POOL_EVENT
         );
 
+        const poolId = parseInt(decodedEvent.poolId);
+
+        const details = await contract.methods.getPoolDetails(poolId).call();
+        const members = details["6"];
+
         data = {
-          poolId: parseInt(decodedEvent.poolId),
+          poolId: poolId,
           name: decodedEvent.name,
           imgCID: decodedEvent.imageCID,
           amount: parseInt(decodedEvent.amount),
           frequency: parseInt(decodedEvent.frequency),
           dueDate: parseInt(decodedEvent.dueDate),
-          creator: decodedEvent.creator,
+          members: members,
           currency: decodedEvent.currency,
         };
 
         respuesta.poolsCreation.push(data);
 
       case DEPOSIT_POOL_EVENT:
-        console.log("deposited event");
-
         decodedEvent = web3.eth.abi.decodeLog(
           depositedEvent.inputs,
           e.data,
