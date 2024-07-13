@@ -53,47 +53,27 @@ const Main = () => {
 
   const [groups, setGroups] = useState(
     [
-      {
-        "name": "Crypto Enthusiasts",
-        "desc": "A group for those passionate about cryptocurrency.",
-        "currency": "eth",
-        "amount": 100,
-        "expDate": "2024-12-31"
-      },
-      {
-        "name": "Blockchain Developers",
-        "desc": "A community for developers working on blockchain technology.",
-        "currency": "btc",
-        "amount": 50,
-        "expDate": "2025-06-30"
-      },
-      {
-        "name": "DeFi Investors",
-        "desc": "Investors exploring decentralized finance opportunities.",
-        "currency": "eth",
-        "amount": 200,
-        "expDate": "2023-09-15"
-      },
-      {
-        "name": "NFT Collectors",
-        "desc": "A group for enthusiasts of non-fungible tokens.",
-        "currency": "eth",
-        "amount": 150,
-        "expDate": "2024-03-20"
-      },
+     
     ]);
+useEffect(()=>{
+
+  const storedGroups = localStorage.getItem('groups');
+  if (storedGroups) {
+    setGroups(JSON.parse(storedGroups));
+  }
+},[])
 
   const [view, setView] = useState("CREATEGROUP");
   const {user} = useDynamicContext();
   console.log('USER:', user);
   const {userScopes} = useDynamicScopes();
   const [selectedGroup, setSelectedGroup] = useState(null);
-  console.log("SCOPES:", userScopes)
+  console.log("SCOPES:", userScopes);
 
   const renderView = () => {
     switch (view) {
       case "CREATEGROUP":
-        return <CreateGroup />;
+        return <CreateGroup groups={groups} setGroups={setGroups}/>;
         case "GROUPDETAIL":
         return <GroupView group={selectedGroup} />;
     }

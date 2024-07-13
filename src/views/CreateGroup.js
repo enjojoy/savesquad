@@ -1,6 +1,7 @@
 import { Datepicker } from "flowbite-react";
 import { useState } from "react";
 
+
 const CreateGroup = ({ groups, setGroups }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -10,23 +11,39 @@ const CreateGroup = ({ groups, setGroups }) => {
   const [currency, setCurrency] = useState("USDC");
   const [contribution, setContribution] = useState(0);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    //1. Create new group on Dynamic and add all the members there
-    //2. Create the group in database with the rest of data(Or retrieve from SC?)
-    // Assuming groups is an array of group objects
-    const newGroup = { name, description, amount };
-    setGroups([...groups, newGroup]);
-    // Clear the input fields after submission
-    setName("");
-    setDescription("");
-    setAmount("");
-  };
+  console.log("GROUPS:", groups);
+  const updateGroups = ({name, desc, amount, currency})=>{
+    const group = {
+      name: name,
+      desc: desc,
+      amount: amount, 
+      currency: currency
+    };
+    console.log("New group:", group)
+    setGroups((prev)=>{
+      const newGroups = [...prev, group];
+      localStorage.setItem('groups', JSON.stringify(newGroups));
+      return newGroups;
+    }
+    )
+
+  }
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   //1. Create new group on Dynamic and add all the members there
+  //   //2. Create the group in database with the rest of data(Or retrieve from SC?)
+  //   // Assuming groups is an array of group objects
+   
+  //   // Clear the input fields after submission
+  //   updateGroups({name, description, amount, currency})
+  // };
 
   return (
     <div>
       <h2 className="text-2xl font-press-start mb-4">New squad</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={(e)=>{ 
+        e.preventDefault();
+        updateGroups({name, description, amount, currency })}}>
         <div className="mb-4">
           <label className="block mb-2">Name</label>
           <input
