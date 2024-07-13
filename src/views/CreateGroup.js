@@ -1,7 +1,6 @@
 import { Datepicker } from "flowbite-react";
 import { useState } from "react";
 import lighthouse from '@lighthouse-web3/sdk'
-import lighthouse from '@lighthouse-web3/sdk'
 
 const CreateGroup = ({ groups, setGroups, file, setFile }) => {
   const [name, setName] = useState("");
