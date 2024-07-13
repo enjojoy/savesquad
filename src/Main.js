@@ -5,6 +5,7 @@ import { Datepicker } from "flowbite-react";
 import GroupView from "./views/GroupView";
 
 
+
 // import { Address } from "~~/components/scaffold-eth";
 // import  {UserProfile}  from "@dynamic-labs/sdk-react-core";
 
@@ -49,9 +50,6 @@ const Main = () => {
 
   //   fetchData();
   // }, []);
-
- 
-
  
   const [file, setFile] = useState(null);
 

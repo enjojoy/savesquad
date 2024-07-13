@@ -1,6 +1,7 @@
 import { Datepicker } from "flowbite-react";
 import { useState } from "react";
 import lighthouse from '@lighthouse-web3/sdk'
+import lighthouse from '@lighthouse-web3/sdk'
 
 const CreateGroup = ({ groups, setGroups, file, setFile }) => {
   const [name, setName] = useState("");
@@ -42,11 +43,6 @@ const CreateGroup = ({ groups, setGroups, file, setFile }) => {
   //   // Clear the input fields after submission
   //   updateGroups({name, description, amount, currency})
   // };
-
-  const handleFileChange = async (e) => {
-    setFile(e.target.files[0]);
-  };
-
   const handleSubmitFile = async (e) => {
     e.preventDefault();
     const progressCallback = (progressData) => {
@@ -63,10 +59,14 @@ const CreateGroup = ({ groups, setGroups, file, setFile }) => {
   
   };
 
+  const handleFileChange = async (e) => {
+    setFile(e.target.files[0]);
+  };
+
   return (
     <div>
       <h2 className="text-2xl font-press-start mb-4">New squad</h2>
-      <form onSubmit={(e) => {
+      < form onSubmit={(e)=>{ 
         e.preventDefault();
 
         console.log(description)
@@ -131,11 +131,16 @@ const CreateGroup = ({ groups, setGroups, file, setFile }) => {
             </select>
           </div>
 
-          <div className="mb-4 w-1/2 px-2">
-            <label className="block mb-2">Milestone date</label>
-            <Datepicker />
-          </div>
+<div className="mb-4 w-1/2 px-2">
+<label className="block mb-2">Milestone date</label>
+        <Datepicker />
+</div>
         </div>
+<div>
+
+      <input type="file" onChange={handleFileChange} />
+      <button onClick={handleSubmitFile}>Upload</button>
+</div>
 
         <button type="submit" className="bg-azure p-4 mt-6 font-press-start text-white rounded">
           Create squad
