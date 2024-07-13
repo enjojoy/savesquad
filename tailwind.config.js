@@ -16,7 +16,7 @@ module.exports = {
         'beige': '#F1F1F1',
         'brown': '#655561',
         'purple': '#9670FA',
-        'azure':'#10C2A2'
+        'azure':'#10C2A2',
       },
     }
 

@@ -71,21 +71,8 @@ const Main = () => {
     return(
 
     <div className="h-screen bg-beige flex flex-col items-center justify-center text-white">
-      <div className="flex flex-col items-center justify-center text-center">
-        <div className="mb-6">
-          <div className="inline-flex items-center justify-center">
-            <img src="/logo.png" alt="logo"/>
-          </div>
-        </div>
-        <h1 className="text-4xl font-bold mb-4">Onboard the world</h1>
-        <p className="text-lg mb-16">Web3 login for <span className="text-blue-400">everyone</span>.</p>
+      <h1 className="font-press-start text-black text-5xl mb-6">JOIN SAVE SQUAD</h1>
         <DynamicWidget />
-      </div>
-      <ul className="menu bg-base-200 rounded-box w-56">
-  <li><a>Item 1</a></li>
-  <li><a>Item 2</a></li>
-  <li><a>Item 3</a></li>
-</ul> 
     </div>
     )
   }else {
