@@ -1,6 +1,6 @@
-import { DynamicWidget ,  useDynamicContext, useDynamicScopes} from "@dynamic-labs/sdk-react-core";
-import { useState , useEffect} from "react";
-import  CreateGroup from "./views/CreateGroup";
+import { DynamicWidget, useDynamicContext, useDynamicScopes } from "@dynamic-labs/sdk-react-core";
+import { useState, useEffect } from "react";
+import CreateGroup from "./views/CreateGroup";
 import { Datepicker } from "flowbite-react";
 import GroupView from "./views/GroupView";
 
@@ -49,58 +49,58 @@ const Main = () => {
 
   //   fetchData();
   // }, []);
- 
+
 
   const [groups, setGroups] = useState(
     [
-     
-    ]);
-useEffect(()=>{
 
-  const storedGroups = localStorage.getItem('groups');
-  if (storedGroups) {
-    setGroups(JSON.parse(storedGroups));
-  }
-},[])
+    ]);
+  useEffect(() => {
+
+    const storedGroups = localStorage.getItem('groups');
+    if (storedGroups) {
+      setGroups(JSON.parse(storedGroups));
+    }
+  }, [])
 
   const [view, setView] = useState("CREATEGROUP");
-  const {user} = useDynamicContext();
+  const { user } = useDynamicContext();
   console.log('USER:', user);
-  const {userScopes} = useDynamicScopes();
+  const { userScopes } = useDynamicScopes();
   const [selectedGroup, setSelectedGroup] = useState(null);
   console.log("SCOPES:", userScopes);
 
   const renderView = () => {
     switch (view) {
       case "CREATEGROUP":
-        return <CreateGroup groups={groups} setGroups={setGroups}/>;
-        case "GROUPDETAIL":
+        return <CreateGroup groups={groups} setGroups={setGroups} />;
+      case "GROUPDETAIL":
         return <GroupView group={selectedGroup} />;
     }
   };
 
-  if (!user){
-    return(
+  if (!user) {
+    return (
 
-    <div className="h-screen bg-beige flex flex-col items-center justify-center text-white">
-      <h1 className="font-press-start text-black text-5xl mb-6">JOIN SAVE SQUAD</h1>
+      <div className="h-screen bg-beige flex flex-col items-center justify-center text-white">
+        <h1 className="font-press-start text-black text-5xl mb-6">JOIN SAVE SQUAD</h1>
         <DynamicWidget />
-    </div>
+      </div>
     )
-  }else {
-  return (
-    <div className="drawer h-screen bg-brown flex flex-row text-black overflow-hidden">
-      < div className=" drawer-side drawer-open h-auto bg-beige rounded p-6 m-6 flex-none">
-        <ul className="menu bg-base-200 text-base-content min-h-full">
+  } else {
+    return (
+      <div className="drawer h-screen bg-brown flex flex-row text-black overflow-hidden">
+        < div className=" drawer-side drawer-open h-auto bg-beige rounded p-6 m-6 flex-none">
+          <ul className="menu bg-base-200 text-base-content min-h-full">
 
-      <li>
-        <button className=" bg-[#9670fa] font-press-start hover:bg-gray-700 hover:text-white p-2 mb-2 w-full text-white rounded" onClick={() => setView("CREATEGROUP")}>New squad +</button>
-        </li>
+            <li>
+              <button className=" bg-[#9670fa] font-press-start hover:bg-gray-700 hover:text-white p-2 mb-2 w-full text-white rounded" onClick={() => setView("CREATEGROUP")}>New squad +</button>
+            </li>
 
 
-        {groups.map((group, index) => (
+            {groups.map((group, index) => (
               <li key={index}>
-                <button 
+                <button
                   className="hover:bg-gray-700 hover:text-white p-2 mb-2 w-full rounded"
                   onClick={() => {
                     setSelectedGroup(group);
@@ -111,21 +111,22 @@ useEffect(()=>{
                 </button>
               </li>
             ))}
-        <li>
+            <li>
 
 
 
-      < DynamicWidget  />
-        </li>
-        </ul>
+              < DynamicWidget />
+            </li>
+          </ul>
+        </div>
+        <div className="drawer-content felx-grow h-auto w-full bg-beige rounded p-6 m-6 ">
+          {renderView()}
+        </div>
+
+
       </div>
-      <div className="drawer-content felx-grow h-auto w-full bg-beige rounded p-6 m-6 ">
-        {renderView()}
-      </div>
-
-
-  </div>
-  );}
+    );
+  }
 }
 
 export default Main;
