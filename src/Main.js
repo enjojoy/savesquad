@@ -1,5 +1,5 @@
 import { DynamicWidget ,  useDynamicContext} from "@dynamic-labs/sdk-react-core";
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import  CreateGroup from "./views/CreateGroup";
 import { Datepicker } from "flowbite-react";
 import GroupView from "./views/GroupView";
@@ -20,6 +20,35 @@ import GroupView from "./views/GroupView";
 
 
 const Main = () => {
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     try {
+  //       const response = await fetch('/api/proxy', {
+  //         method: 'POST', // Ensure this is a POST request
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //         body: JSON.stringify({
+  //           name: 'Name test another123',
+  //           scope: 'Test1',
+  //           outcome: 'scope',
+  //         }),
+  //       });
+
+  //       if (!response.ok) {
+  //         const errorText = await response.text();
+  //         throw new Error(`Error from API: ${errorText}`);
+  //       }
+
+  //       const result = await response.json();
+  //       console.log('Result:', result);
+  //     } catch (error) {
+  //       console.log('Error:', error);
+  //     }
+  //   }
+
+  //   fetchData();
+  // }, []);
  
 
   const [groups, setGroups] = useState(
@@ -56,7 +85,7 @@ const Main = () => {
 
   const [view, setView] = useState("CREATEGROUP");
   const {user} = useDynamicContext();
-  console.log(view);
+  console.log('USER:', user);
   const [selectedGroup, setSelectedGroup] = useState(null);
 
   const renderView = () => {
