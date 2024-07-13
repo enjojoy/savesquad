@@ -1,6 +1,7 @@
 import { Datepicker } from "flowbite-react";
 import { useState } from "react";
 import lighthouse from '@lighthouse-web3/sdk'
+import { useAccount, useEnsName, useEnsAvatar } from "wagmi";
 
 const CreateGroup = ({ groups, setGroups, file, setFile }) => {
   const [name, setName] = useState("");
@@ -10,6 +11,11 @@ const CreateGroup = ({ groups, setGroups, file, setFile }) => {
   const [frequency, setFrequency] = useState("weekly");
   const [currency, setCurrency] = useState("USDC");
   const [contribution, setContribution] = useState(0);
+  const [handle, setHandle] = useState("");
+
+  // useEffect(()=>{
+  //   console.log(handle);
+  // }, [handle])
 
   // setContribution(0)
 
@@ -20,7 +26,7 @@ const CreateGroup = ({ groups, setGroups, file, setFile }) => {
       desc: description,
       amount: amount,
       currency: currency,
-      contributed: contribution
+      contributed: contribution,
     };
     console.log("New group:", group)
     setGroups((prev) => {
@@ -134,6 +140,21 @@ const CreateGroup = ({ groups, setGroups, file, setFile }) => {
 <label className="block mb-2">Milestone date</label>
         <Datepicker />
 </div>
+        </div>
+
+        <div className="mb-4">
+          <h4>Add squad member</h4>
+          <p>Please enter email, eth address or ens handle</p>
+          <div className="flex flex-row">
+
+          <input
+           type="text"
+           value={handle}
+           onChange={(e) => setHandle(e.target.value)}
+           className=" p-2 rounded w-full"
+           required></input>
+           <button className="bg-azure p-4 ml-2 font-press-start text-white rounded">+</button>
+          </div>
         </div>
 <div>
 

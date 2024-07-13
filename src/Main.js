@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import CreateGroup from "./views/CreateGroup";
 import { Datepicker } from "flowbite-react";
 import GroupView from "./views/GroupView";
-
+import Dashboard from "./views/Dashboard";
+import Image from 'next/image'
 
 
 // import { Address } from "~~/components/scaffold-eth";
@@ -65,7 +66,7 @@ const Main = () => {
     }
   }, [])
 
-  const [view, setView] = useState("CREATEGROUP");
+  const [view, setView] = useState("DASHBOARD");
   const { user } = useDynamicContext();
   console.log('USER:', user);
   const { userScopes } = useDynamicScopes();
@@ -76,8 +77,10 @@ const Main = () => {
     switch (view) {
       case "CREATEGROUP":
         return <CreateGroup groups={groups} setGroups={setGroups} file={file} setFile={setFile}/>;
-        case "GROUPDETAIL":
+      case "GROUPDETAIL":
         return <GroupView group={selectedGroup} />;
+      case "DASHBOARD":
+        return <Dashboard user={user}/>
     }
   };
 
@@ -93,10 +96,9 @@ const Main = () => {
     return (
       <div className="drawer h-screen bg-brown flex flex-row text-black overflow-hidden">
         < div className=" drawer-side drawer-open h-auto bg-beige rounded p-6 m-6 flex-none">
-          <ul className="menu bg-base-200 text-base-content min-h-full">
-
+          <ul className="flex flex-col menu bg-base-200 text-base-content min-h-full">
             <li>
-              <button className=" bg-[#9670fa] font-press-start hover:bg-gray-700 hover:text-white p-2 mb-2 w-full text-white rounded" onClick={() => setView("CREATEGROUP")}>New squad +</button>
+            <Image src={`images/logo.svg`} alt="logo" height="50" width="250" onClick={()=>setView("DASHBOARD")}/>
             </li>
 
 
@@ -113,6 +115,9 @@ const Main = () => {
                 </button>
               </li>
             ))}
+            <li>
+              <button className=" bg-[#9670fa] font-press-start hover:bg-gray-700 hover:text-white p-2 mb-2 w-full text-white rounded" onClick={() => setView("CREATEGROUP")}>New squad +</button>
+            </li>
             <li>
 
 
