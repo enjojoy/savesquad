@@ -1,8 +1,8 @@
 import { Datepicker } from "flowbite-react";
 import { useState } from "react";
+import lighthouse from '@lighthouse-web3/sdk'
 
-
-const CreateGroup = ({ groups, setGroups }) => {
+const CreateGroup = ({ groups, setGroups, file, setFile }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
@@ -42,6 +42,26 @@ const CreateGroup = ({ groups, setGroups }) => {
   //   // Clear the input fields after submission
   //   updateGroups({name, description, amount, currency})
   // };
+
+  const handleFileChange = async (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const handleSubmitFile = async (e) => {
+    e.preventDefault();
+    const progressCallback = (progressData) => {
+      let percentageDone =
+        100 - (progressData?.total / progressData?.uploaded)?.toFixed(2)
+      console.log(percentageDone)
+    }
+      console.log("File to upload:", file)
+      const output = await lighthouse.upload([file], "cc17de30.9c81d6383aa5420bb81b027aaa5a5c5d", false, null, progressCallback)
+      const picHash = output.data.Hash;
+      console.log("HASH: ", picHash);
+        console.log('Visit at https://gateway.lighthouse.storage/ipfs/' + output.data.Hash)
+    
+  
+  };
 
   return (
     <div>

@@ -45,7 +45,11 @@
     ]
   },
   "devDependencies": {
+    "@lighthouse-web3/sdk": "^0.3.3",
+    "@web3-storage/w3up-client": "^15.0.0",
     "eslint": "^9.7.0",
+    "formidable": "^3.5.1",
+    "fs": "^0.0.1-security",
     "tailwindcss": "^3.4.3"
   }
 }
