@@ -1,6 +1,11 @@
 import { Progress } from "flowbite-react";
 import { SendTransactionSection } from "./SendTransaction";
 import Image from "next/image";
+import { useWriteContract } from "wagmi";
+import {
+  ABI_ROOTSTOCK_POOL_CONTRACT,
+  ROOTSTOCK_POOL_CONTRACT,
+} from "../../pages/constants";
 
 import { useState, useEffect } from "react";
 
@@ -22,7 +27,7 @@ const GroupView = ({ group }) => {
     fetchPoolInfo();
   }, []);
 
-  const pool = poolInfo?.data.pools[0] || undefined
+  const pool = poolInfo?.data.pools[0] || undefined;
   // console.log(pool)
   const DisplayImage = ({ cid }) => {
     const imageUrl = `https://gateway.lighthouse.storage/ipfs/${group.picHash}`;
@@ -34,6 +39,24 @@ const GroupView = ({ group }) => {
       />
     );
   };
+
+  const {
+    write: deposit,
+    data,
+    isLoading,
+    isSuccess,
+    error,
+  } = useWriteContract({
+    address: ROOTSTOCK_POOL_CONTRACT,
+    abi: ABI_ROOTSTOCK_POOL_CONTRACT,
+    functionName: "deposit",
+    args: [pool?.id, amount],
+  });
+
+  const handleDeposit = () => {
+    deposit();
+  };
+
   return (
     // <div className="flex flex-col">
 
@@ -61,6 +84,19 @@ const GroupView = ({ group }) => {
       <div className="bg-gray-200 flex items-center justify-center">
         Pool/Balance/Rewards
         <p>Goal: {pool?.amount}</p>
+        <input
+          type="text"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+          placeholder="Enter amount to deposit"
+          className="border p-2"
+        />
+        <button
+          onClick={handleDeposit}
+          className="bg-blue-500 text-white p-2 mt-2"
+        >
+          Deposit
+        </button>
       </div>
       <div className="bg-gray-200 flex items-center justify-center">
         My Transactions

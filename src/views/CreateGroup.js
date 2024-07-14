@@ -72,7 +72,19 @@ const CreateGroup = ({ groups, setGroups, file, setFile }) => {
       return newGroups;
     });
 
-    // TODO: Create a smart contract in celo?
+    try {
+      createPoolTransaction(
+        name,
+        description,
+        amount,
+        currency,
+        contribution,
+        members,
+        picHash
+      );
+    } catch (e) {
+      console.error("[createPoolTx] err = ", e);
+    }
   };
   // const handleSubmit = (e) => {
   //   e.preventDefault();
