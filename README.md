@@ -1,76 +1,24 @@
-# Getting Started with Create React App
+# SaveSquad
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![savesquad](/public/images/lol.jpg)
 
-## Available Scripts
+[Video Demo](https://youtu.be/4w8tTAMY2_8)
 
-In the project directory, you can run:
 
-### `npm start`
+## Saving Is Better… With Frens! 🪙
+Save Squad lets you team up with friends to save towards a common goal—and earn something extra along the way! Whether it's getting to Devcon, throwing an epic birthday party, or snagging that pilot license, set a squad target amount and keep each other on track. The best part? Your contributions are pooled together and staked, growing your savings over time. At the end of your set period, everyone gets their share of the rewards!
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### The Rules 🕹️
+1. Create Your Squad: Start by setting up the squad and defining the goal, squad size, contribution amounts, frequency, and due date.<br />
+1. Invite Your Crew: Bring in your friends and start contributing. Stay on track to maximize your rewards—being late could mean a deduction in your prize!<br />
+1. Reap the Rewards: At the end, each member gets their savings plus a share of the staking rewards. Then, let the fun begin!<br />
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## The Stack: what we used
 
-### `npm test`
+The platform operates through a smart contract on Rootstock, which manages the creation of pools, deposits, and withdrawals. This contract also interfaces with the staking protocol to deposit pooled tokens.
+SaveSquad utilizes Warp Routes by Hyperlane to swap USDC from multiple chains to wUSDC on Rootstock, ensuring seamless interaction within the platform.<br />
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-User can create a group. I can create group and list the groups. Description/text(goal/amount), they can add people via email, address or ens.
-
-SIDEBAR:
--Create group
--List of the groups
+Here are the links for:
+- [backend](https://github.com/reymom/savesquad-backend)
+- [frontend](https://github.com/enjojoy/ethglobal2024frontend)
+- [swap](https://github.com/reymom/savesquad-swap)
