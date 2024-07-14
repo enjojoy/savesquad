@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { useSendTransaction } from "wagmi";
 
  function Component() {
 
   const [sellAmount, setSellAmount] = useState(0);
   const [buyAmount, setBuyAmount] = useState(0);
+
+  
 
   return (
     <div className="max-w-md mx-auto bg-purple p-4 rounded-lg shadow-lg ">
@@ -32,25 +35,29 @@ import { useState } from "react";
         <div className="flex items-center justify-between p-4 bg-brown rounded-lg">
           <div>
             <p className="text-sm  text-gray-400">wUSDC</p>
-            <p className="text-3xl text-white">{buyAmount}</p>
+            <p className="text-3xl p-2 text-white">{buyAmount}</p>
           </div>
          
         </div>
-        <button className="w-full bg-brown text-white font-press-start text-white py-3 rounded-lg">Conectar cartera</button>
+        <button className="w-full bg-brown text-white font-press-start text-white py-3 rounded-lg">SWAP</button>
       </div>
     </div>
   )
 }
 
-const Dashboard = ({user}) => {
+const Dashboard = ({user, network}) => {
 
     console.log("USER DASHBOARD:", user);
+    console.log("NETWORK:", network);
+
 
 
   return (
     <div className="w-full h-full flex-col  flex center items-center justify-center">
       <h1 className="font-press-start text-4xl mb-6 text-center">CREATE A NEW SQUAD OR FEED THE MONSTERS</h1>
+      {network !== 31 && 
       <Component/>
+      }
     </div>
   );
 };

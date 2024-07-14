@@ -4,7 +4,8 @@ import CreateGroup from "./views/CreateGroup";
 import { Datepicker } from "flowbite-react";
 import GroupView from "./views/GroupView";
 import Dashboard from "./views/Dashboard";
-import Image from 'next/image'
+import Image from 'next/image';
+import { useAccount, useProvider } from "wagmi";
 
 
 // import { Address } from "~~/components/scaffold-eth";
@@ -22,6 +23,21 @@ import Image from 'next/image'
 // }
 
 const Main = () => {
+const { address, isConnected } = useAccount();
+  // const provider = useProvider();
+  const [balance, setBalance] = useState(null);
+  useEffect(() => {
+    if (isConnected) {
+      const fetchBalance = async () => {
+        const contract = new ethers.Contract(usdcAddress, usdcAbi, provider);
+        const balance = await contract.balanceOf(address);
+        setBalance(ethers.utils.formatUnits(balance, 6)); // USDC has 6 decimals
+      };
+      fetchBalance();
+    }
+  }, [address, isConnected]);
+
+  console.log("BALANCE: ", balance);
   // useEffect(() => {
   //   async function fetchData() {
   //     try {
@@ -68,7 +84,11 @@ const Main = () => {
 
   const [view, setView] = useState("DASHBOARD");
   const { user } = useDynamicContext();
+  const {network} = useDynamicContext();
+  const {primaryWallet} = useDynamicContext();
+  
   console.log('USER:', user);
+  // console.log("WALLET: ", primaryWallet.connector.getBalance());
   const { userScopes } = useDynamicScopes();
   const [selectedGroup, setSelectedGroup] = useState(null);
   console.log("SCOPES:", userScopes);
@@ -80,7 +100,7 @@ const Main = () => {
       case "GROUPDETAIL":
         return <GroupView group={selectedGroup} />;
       case "DASHBOARD":
-        return <Dashboard user={user}/>
+        return <Dashboard user={user} network={network}/>
     }
   };
 
