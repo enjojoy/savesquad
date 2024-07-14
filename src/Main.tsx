@@ -1,17 +1,24 @@
-import { DynamicWidget, useDynamicContext, useDynamicScopes } from "@dynamic-labs/sdk-react-core";
+import {
+  DynamicWidget,
+  useDynamicContext,
+  useDynamicScopes,
+} from "@dynamic-labs/sdk-react-core";
 import { useState, useEffect } from "react";
 import CreateGroup from "./views/CreateGroup";
 import { Datepicker } from "flowbite-react";
 import GroupView from "./views/GroupView";
 import Dashboard from "./views/Dashboard";
-import Image from 'next/image';
-import { useAccount, useProvider } from "wagmi";
-
+import Image from "next/image";
+import { useAccount, WagmiProvider } from "wagmi";
+import { ethers } from "ethers";
+import { ABI_WUSD_CONTRACT, WUSDC_CONTRACT } from "../pages/constants";
+import { config } from "./App";
+import { readContract } from "@wagmi/core";
 
 // import { Address } from "~~/components/scaffold-eth";
 // import  {UserProfile}  from "@dynamic-labs/sdk-react-core";
 
-//Views: LOGIN - not logged in; Menu - DASHBOARD, APP 
+//Views: LOGIN - not logged in; Menu - DASHBOARD, APP
 
 //group object example
 // {
@@ -23,21 +30,9 @@ import { useAccount, useProvider } from "wagmi";
 // }
 
 const Main = () => {
-const { address, isConnected } = useAccount();
+  const { address, isConnected } = useAccount();
   // const provider = useProvider();
-  const [balance, setBalance] = useState(null);
-  useEffect(() => {
-    if (isConnected) {
-      const fetchBalance = async () => {
-        const contract = new ethers.Contract(usdcAddress, usdcAbi, provider);
-        const balance = await contract.balanceOf(address);
-        setBalance(ethers.utils.formatUnits(balance, 6)); // USDC has 6 decimals
-      };
-      fetchBalance();
-    }
-  }, [address, isConnected]);
 
-  console.log("BALANCE: ", balance);
   // useEffect(() => {
   //   async function fetchData() {
   //     try {
@@ -67,66 +62,75 @@ const { address, isConnected } = useAccount();
 
   //   fetchData();
   // }, []);
- 
+
   const [file, setFile] = useState(null);
 
-  const [groups, setGroups] = useState(
-    [
-
-    ]);
+  const [groups, setGroups] = useState([]);
   useEffect(() => {
-
-    const storedGroups = localStorage.getItem('groups');
+    const storedGroups = localStorage.getItem("groups");
     if (storedGroups) {
       setGroups(JSON.parse(storedGroups));
     }
-  }, [])
+  }, []);
 
   const [view, setView] = useState("DASHBOARD");
   const { user } = useDynamicContext();
-  const {network} = useDynamicContext();
-  const {primaryWallet} = useDynamicContext();
-  
-  console.log('USER:', user);
+  const { network } = useDynamicContext();
+  const { primaryWallet } = useDynamicContext();
+
+  // console.log("USER:", user);
   // console.log("WALLET: ", primaryWallet.connector.getBalance());
   const { userScopes } = useDynamicScopes();
   const [selectedGroup, setSelectedGroup] = useState(null);
-  console.log("SCOPES:", userScopes);
+  // console.log("SCOPES:", userScopes);
 
   const renderView = () => {
     switch (view) {
       case "CREATEGROUP":
-        return <CreateGroup groups={groups} setGroups={setGroups} file={file} setFile={setFile}/>;
+        return (
+          <CreateGroup
+            groups={groups}
+            setGroups={setGroups}
+            file={file}
+            setFile={setFile}
+          />
+        );
       case "GROUPDETAIL":
         return <GroupView group={selectedGroup} />;
       case "DASHBOARD":
-        return <Dashboard user={user} network={network}/>
+        return <Dashboard user={user} network={network} />;
     }
   };
 
   if (!user) {
     return (
-
       <div className="h-screen bg-beige flex flex-col items-center justify-center text-white">
-        <h1 className="font-press-start text-black text-5xl mb-6">JOIN SAVE SQUAD</h1>
+        <h1 className="font-press-start text-black text-5xl mb-6">
+          JOIN SAVE SQUAD
+        </h1>
         <DynamicWidget />
       </div>
-    )
+    );
   } else {
     return (
       <div className="drawer h-screen bg-brown flex flex-row text-black overflow-hidden">
-        < div className=" drawer-side relative drawer-open h-auto bg-beige rounded p-6 m-6 flex-none">
+        <div className=" drawer-side relative drawer-open h-auto bg-beige rounded p-6 m-6 flex-none">
           <ul className="flex flex-col menu bg-base-200 text-base-content min-h-full">
             <li>
-            <Image src={`images/logo.svg`} alt="logo" height="50" width="250" onClick={()=>setView("DASHBOARD")}/>
+              <Image
+                src={`images/logo.svg`}
+                alt="logo"
+                height="50"
+                width="250"
+                onClick={() => setView("DASHBOARD")}
+              />
             </li>
             <li>
-              < DynamicWidget />
+              <DynamicWidget />
             </li>
 
-
             {groups.map((group, index) => (
-              <li key={index} >
+              <li key={index}>
                 <button
                   className="hover:bg-orange hover:text-white p-2 mt-2 mb-2 w-full rounded"
                   onClick={() => {
@@ -139,24 +143,23 @@ const { address, isConnected } = useAccount();
               </li>
             ))}
             <div className="absolute bottom-0 mb-6 center w-[250px]">
-
-            <li>
-              <button className=" bg-[#9670fa] font-press-start hover:bg-gray-700 hover:text-white p-2 mb-2 w-full text-white rounded" onClick={() => setView("CREATEGROUP")}>New squad +</button>
-            </li>
-            
+              <li>
+                <button
+                  className=" bg-[#9670fa] font-press-start hover:bg-gray-700 hover:text-white p-2 mb-2 w-full text-white rounded"
+                  onClick={() => setView("CREATEGROUP")}
+                >
+                  New squad +
+                </button>
+              </li>
             </div>
           </ul>
         </div>
         <div className="drawer-content felx-grow h-auto w-full bg-beige rounded p-6 m-6 ">
           {renderView()}
         </div>
-
-
-
-
       </div>
     );
   }
-}
+};
 
 export default Main;

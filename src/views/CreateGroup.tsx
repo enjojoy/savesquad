@@ -1,12 +1,13 @@
 import { Datepicker } from "flowbite-react";
-import { useState } from "react";
+import { FC, useState } from "react";
 import lighthouse from "@lighthouse-web3/sdk";
 import EnsResolver from "../components/EnsResolver";
-import { useWriteContract } from "wagmi";
+import { ethers } from "ethers";
 import {
   ABI_ROOTSTOCK_POOL_CONTRACT,
   ROOTSTOCK_POOL_CONTRACT,
 } from "../../pages/constants";
+import { config } from "../App";
 
 const CreateGroup = ({ groups, setGroups, file, setFile }) => {
   const [name, setName] = useState("");
@@ -17,7 +18,7 @@ const CreateGroup = ({ groups, setGroups, file, setFile }) => {
   const [currency, setCurrency] = useState("USDC");
   const [contribution, setContribution] = useState(0);
   const [handle, setHandle] = useState("");
-  const [members, setMembers] = useState([]);
+  const [members, setMembers] = useState<String[]>([]);
   const [percentageDone, setPercentageDone] = useState(0);
   const [picHash, setPicHash] = useState("");
 
@@ -27,64 +28,60 @@ const CreateGroup = ({ groups, setGroups, file, setFile }) => {
 
   // setContribution(0)
 
-  function createPoolTransaction(
+  async function createPoolTransaction(
     name,
     imageCID,
     amount,
     frequency,
     dueDate,
-    members,
-    currency
+    members
   ) {
-    const { writeContract } = useWriteContract();
+    const provider = new ethers.BrowserProvider(window.ethereum!);
+    const signer = await provider.getSigner();
 
-    writeContract({
+    const rootStockPoolContract = new ethers.Contract(
+      ROOTSTOCK_POOL_CONTRACT,
       ABI_ROOTSTOCK_POOL_CONTRACT,
-      address: ROOTSTOCK_POOL_CONTRACT,
-      functonName: "createPool",
-      args: [name, imageCID, amount, frequency, dueDate, members, currency],
-    });
+      signer
+    );
+
+    // rootStockPoolContract.``
+
+    rootStockPoolContract.createPool(
+      name,
+      imageCID,
+      amount,
+      frequency,
+      dueDate,
+      members
+    );
   }
 
-  console.log("GROUPS:", groups);
+  // console.log("GROUPS:", groups);
   const updateGroups = ({
     name,
     description,
     amount,
-    currency,
     contribution,
     members,
     picHash,
+    currency,
   }) => {
     const group = {
       name: name,
       desc: description,
       amount: amount,
-      currency: currency,
       contributed: contribution,
       members: members,
       picHash: picHash,
+      currency: currency,
     };
-    console.log("New group:", group);
+    // console.log("New group:", group);
     setGroups((prev) => {
       const newGroups = [...prev, group];
       localStorage.setItem("groups", JSON.stringify(newGroups));
       return newGroups;
     });
-
-    try {
-      createPoolTransaction(
-        name,
-        description,
-        amount,
-        currency,
-        contribution,
-        members,
-        picHash
-      );
-    } catch (e) {
-      console.error("[createPoolTx] err = ", e);
-    }
   };
   // const handleSubmit = (e) => {
   //   e.preventDefault();
@@ -92,14 +89,25 @@ const CreateGroup = ({ groups, setGroups, file, setFile }) => {
   //   //2. Create the group in database with the rest of data(Or retrieve from SC?)
   //   // Assuming groups is an array of group objects
 
-  // call createPoolTransaction(args) to create the pool
+  //   try {
+  //   } catch (e) {
+  //     console.error("[createPoolTx] err = ", e);
+  //   }
 
   //   // Clear the input fields after submission
-  //   updateGroups({name, description, amount, currency})
+  //   // updateGroups({
+  //   //   name,
+  //   //   description,
+  //   //   amount,
+  //   //   currency,
+  //   //   contribution,
+  //   //   members,
+  //   //   picHash,
+  //   // });
   // };
   const handleSubmitFile = async (e) => {
     e.preventDefault();
-    const progressCallback = (progressData) => {
+    const progressCallback = (progressData: any) => {
       let percentageDone =
         100 - (progressData?.total / progressData?.uploaded)?.toFixed(2);
       setPercentageDone(percentageDone);
@@ -132,7 +140,6 @@ const CreateGroup = ({ groups, setGroups, file, setFile }) => {
         onSubmit={(e) => {
           e.preventDefault();
 
-          console.log(description);
           updateGroups({
             name,
             description,
@@ -143,6 +150,21 @@ const CreateGroup = ({ groups, setGroups, file, setFile }) => {
             picHash,
           });
         }}
+        // onSubmit={(e) => {
+        //   e.preventDefault();
+
+        //   console.log(description);
+
+        //   createPoolTransaction(
+        //     name,
+        //     picHash,
+        //     amount,
+        //     frequency,
+        //     expirationDate,
+        //     members
+        //   );
+
+        // }}
       >
         <div className="mb-4">
           <label className="block mb-2">Name</label>
@@ -212,6 +234,7 @@ const CreateGroup = ({ groups, setGroups, file, setFile }) => {
           <p>Please enter email, eth address or ens handle</p>
           <div className="flex flex-row">
             <EnsResolver members={members} setMembers={setMembers} />
+
             {/* <input
            type="text"
            value={handle}
@@ -221,30 +244,34 @@ const CreateGroup = ({ groups, setGroups, file, setFile }) => {
            <button className="bg-azure p-4 ml-2 font-press-start text-white rounded">+</button> */}
           </div>
         </div>
-        <div>
-          <input
-            className="font-press-start rounded"
-            type="file"
-            onChange={handleFileChange}
-          />
-          <p>{percentageDone}</p>
+        <div className="flex justify-between">
+          <div>
+            <input
+              className="font-press-start rounded"
+              type="file"
+              onChange={handleFileChange}
+            />
+            <button
+              className="font-press-start bg-azure text-white m-2 p-2 rounded"
+              onClick={handleSubmitFile}
+            >
+              Upload
+            </button>
+          </div>
+
           <button
-            className="font-press-start bg-azure text-white m-2 p-2 rounded"
-            onClick={handleSubmitFile}
+            type="submit"
+            className={"bg-azure p-4 mt-6 font-press-start text-white rounded"}
           >
-            Upload
+            Create squad
           </button>
         </div>
-
-        <button
-          type="submit"
-          className={"bg-azure p-4 mt-6 font-press-start text-white rounded"}
-        >
-          Create squad
-        </button>
       </form>
     </div>
   );
 };
 
 export default CreateGroup;
+function usePrepareContractWrite(arg0: unknown): { config: any } {
+  throw new Error("Function not implemented.");
+}

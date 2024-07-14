@@ -8,9 +8,12 @@ import {
 } from "../../pages/constants";
 
 import { useState, useEffect } from "react";
+import { Address } from "../components/Avatar";
 
 const GroupView = ({ group }) => {
-  console.log("GROUP VIEW:", group);
+  const [amount, setAmount] = useState(0);
+
+  // console.log("GROUP VIEW:", group);
   const [poolInfo, setPoolInfo] = useState(null);
   useEffect(() => {
     const fetchPoolInfo = async () => {
@@ -40,18 +43,18 @@ const GroupView = ({ group }) => {
     );
   };
 
-  const {
-    write: deposit,
-    data,
-    isLoading,
-    isSuccess,
-    error,
-  } = useWriteContract({
-    address: ROOTSTOCK_POOL_CONTRACT,
-    abi: ABI_ROOTSTOCK_POOL_CONTRACT,
-    functionName: "deposit",
-    args: [pool?.id, amount],
-  });
+  // const {
+  //   write: deposit,
+  //   data,
+  //   isLoading,
+  //   isSuccess,
+  //   error,
+  // } = useWriteContract({
+  //   address: ROOTSTOCK_POOL_CONTRACT,
+  //   abi: ABI_ROOTSTOCK_POOL_CONTRACT,
+  //   functionName: "deposit",
+  //   args: [pool?.id, amount],
+  // });
 
   const handleDeposit = () => {
     deposit();
@@ -70,26 +73,29 @@ const GroupView = ({ group }) => {
     //  <div>contributed: {group.contributed} / {group.amount}</div>
     //  <SendTransactionSection address={0xb76080b3025f0fAAF8A2223C037C351d6AF6A1AA}></SendTransactionSection>
     <div className="grid grid-cols-2 gap-4 h-full">
-      <div className="bg-gray-200 ">
-        <h1 className="font-press-start p-2 text-3xl">{group.name}</h1>
-        <p>{group.desc}</p>
-        <div>
-          <h2>Countdown</h2>
-          <DisplayImage
-            cid={"bafkreian6mpwkdf6otutsa4fh7e7e24mwukdddqxwasdfo6txkjl2o2zxm"}
-          />
+      <div className="flex justify-center align-middle">
+        <div className="bg-gray-200 flex flex-col gap-y-6 items-center">
+          <h1 className="font-press-start my-2 text-2xl mt-5">{group.name}</h1>
+          <p className="justify-center">{group.desc}</p>
+          <div className="align-middle">
+            <DisplayImage
+              cid={
+                "bafkreian6mpwkdf6otutsa4fh7e7e24mwukdddqxwasdfo6txkjl2o2zxm"
+              }
+            />
+          </div>
         </div>
       </div>
 
-      <div className="bg-gray-200 flex items-center justify-center">
-        Pool/Balance/Rewards
-        <p>Goal: {pool?.amount}</p>
+      <div className="bg-gray-200 flex flex-col items-center justify-center">
+        <h1>Goal: {1000} USD</h1>
+        <p>Balance: 200 USD</p>
         <input
           type="text"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
           placeholder="Enter amount to deposit"
-          className="border p-2"
+          className="border p-2 mt-3"
         />
         <button
           onClick={handleDeposit}
@@ -99,15 +105,18 @@ const GroupView = ({ group }) => {
         </button>
       </div>
       <div className="bg-gray-200 flex items-center justify-center">
-        My Transactions
+        Transactions
       </div>
       <div className="bg-gray-200 flex items-center justify-center">
         <div className="flex flex-col">
           {group.members.map((member, index) => (
-            <div key={index}>
-              <p className="font-press-start">{member.domain}:</p>
-              <p>{member.address}</p>
+            <div className="my-2">
+              <Address address={member.address} />
             </div>
+            // <div key={index}>
+            //   <p className="font-press-start">{member.domain}:</p>
+            //   <p>{member.address}</p>
+            // </div>
           ))}
         </div>
       </div>
