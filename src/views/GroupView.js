@@ -13,7 +13,7 @@ const GroupView = ({ group }) => {
         const response = await fetch("/api/getPools");
         const data = await response.json();
         setPoolInfo(data);
-        // console.log("Pool Info:", data);
+        console.log("Pool Info:", data);
       } catch (error) {
         console.error("Error fetching pool info:", error);
       }
@@ -22,8 +22,8 @@ const GroupView = ({ group }) => {
     fetchPoolInfo();
   }, []);
 
-  const pool = poolInfo?.data.pools[0]
-  console.log(pool)
+  const pool = poolInfo?.data.pools[0] || undefined
+  // console.log(pool)
   const DisplayImage = ({ cid }) => {
     const imageUrl = `https://gateway.lighthouse.storage/ipfs/${group.picHash}`;
     return (
@@ -60,7 +60,7 @@ const GroupView = ({ group }) => {
 
       <div className="bg-gray-200 flex items-center justify-center">
         Pool/Balance/Rewards
-        <p>Goal: {pool.amount}</p>
+        <p>Goal: {pool?.amount}</p>
       </div>
       <div className="bg-gray-200 flex items-center justify-center">
         My Transactions

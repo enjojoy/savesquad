@@ -100,12 +100,15 @@ const Main = () => {
             <li>
             <Image src={`images/logo.svg`} alt="logo" height="50" width="250" onClick={()=>setView("DASHBOARD")}/>
             </li>
+            <li>
+              < DynamicWidget />
+            </li>
 
 
             {groups.map((group, index) => (
               <li key={index} >
                 <button
-                  className="hover:bg-orange hover:text-white p-2 mb-2 w-full rounded"
+                  className="hover:bg-orange hover:text-white p-2 mt-2 mb-2 w-full rounded"
                   onClick={() => {
                     setSelectedGroup(group);
                     setView("GROUPDETAIL");
@@ -120,9 +123,7 @@ const Main = () => {
             <li>
               <button className=" bg-[#9670fa] font-press-start hover:bg-gray-700 hover:text-white p-2 mb-2 w-full text-white rounded" onClick={() => setView("CREATEGROUP")}>New squad +</button>
             </li>
-            <li>
-              < DynamicWidget />
-            </li>
+            
             </div>
           </ul>
         </div>
