@@ -25,7 +25,7 @@ import { useSendTransaction } from "wagmi";
             />
           </div>
           <div className="flex items-center space-x-2">
-            <div class="flex relative inline-block w-64 justify-end">
+            <div className="flex relative inline-block w-64 justify-end">
 </div>
 
           </div>
