@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@dynamic-labs/ethereum": "^3.0.0-alpha.17",
+    "@dynamic-labs/ethereum": "^3.0.0-alpha.37",
     "@dynamic-labs/sdk-react-core": "^3.0.0-alpha.17",
     "@dynamic-labs/wagmi-connector": "3.0.0-alpha.17",
     "@heroicons/react": "^2.1.5",
